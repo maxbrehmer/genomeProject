@@ -11,18 +11,12 @@ public class Setdata {
 		
 		for (int i = 0; i < inputList.size(); i++) {
 			String newVal = inputList.get(i);
-			current = Math.abs(newVal.hashCode()) % 11;
+			current = newVal.hashCode();
 			
-			while (true) {
-				if (ht.containsKey(current)) {
-					current++;
-				} else {
-					ht.put(current, newVal);
-					break;
-				}
+			if (ht.containsValue(newVal) == false) {
+				ht.put(current, newVal);
+				System.out.println("Added " + newVal + " to index " + current);
 			}
-			
-			System.out.println("Added " + newVal + " to index " + current);
 		}
 	}
 	
@@ -50,8 +44,5 @@ public class Setdata {
 		System.out.println("\n" + inputList);
 		
 		newHash.hashfunction(inputList, ht);
-		for (int j = 0; j < inputList.size(); j++) {
-			System.out.println(inputList.get(j).hashCode());
-		}
 	}
 }
