@@ -12,12 +12,12 @@ public class HashTable {
 		tableArray = new String[size];
 	}
 	
-	public void hashFunction(String[] inputArray, String[] tableArray) {
+	public void hashFunction(ArrayList<String> inputList, String[] tableArray) {
 		int current;
 		
-		for (int i = 0; i < inputArray.length; i++) {
-			String newVal = inputArray[i];
-			current = Math.abs(newVal.hashCode()) % inputArray.length;
+		for (int i = 0; i < inputList.size(); i++) {
+			String newVal = inputList.get(i);
+			current = Math.abs(newVal.hashCode()) % tableArray.length;
 			
 			while (true) {
 				if (tableArray[current] == null) {
@@ -36,7 +36,7 @@ public class HashTable {
 		}
 	}
 	
-	public static ArrayList<String> addInput() {
+	public ArrayList<String> addInput() {
 		ArrayList<String> inputList = new ArrayList<String>();
 		
 		try (Scanner myScanner = new Scanner(System.in)) {
@@ -55,16 +55,13 @@ public class HashTable {
 	public static void main(String[] args) {
 		HashTable newHash = new HashTable(10);
 		
-		String[] inputArray = {"fp3.luci_01A01.ctg.ctg7180000038386", "fp3.luci_02C06.ctg.ctg7180000060335", "fp3.luci_02C06.ctg.ctg7180000085546", "fp3.luci_02C06.ctg.ctg7180000085693", " ", "alfons åberg", "a", "3"};
-		newHash.hashFunction(inputArray, newHash.tableArray);
-		
-		System.out.println("\nTest");
-		for (int i=0; i<inputArray.length; i++) {
-			System.out.println(inputArray[i].hashCode());
-		}
-		
-		ArrayList<String> inputList = addInput();
+		ArrayList<String> inputList = newHash.addInput();
 		System.out.println(inputList);
+		
+		newHash.hashFunction(inputList, newHash.tableArray);
+		for (int j = 0; j < inputList.size(); j++) {
+			System.out.println(inputList.get(j).hashCode());
+		}
 	}
 	
 }
