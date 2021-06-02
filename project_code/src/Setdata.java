@@ -1,35 +1,24 @@
-/*
 import java.util.*;
-import java.lang.Math;
 
-public class HashTable {
+public class Setdata {
 	
-	String[] tableArray;
-	int arraySize;
-	
-	public HashTable(int size) {
+	public Setdata() {
 		//Constructor
-		arraySize = size;
-		tableArray = new String[size];
 	}
 	
-	public void hashFunction(ArrayList<String> inputList, String[] tableArray) {
+	public void hashfunction(ArrayList<String> inputList, Hashtable<Integer, String> ht) {
 		int current;
 		
 		for (int i = 0; i < inputList.size(); i++) {
 			String newVal = inputList.get(i);
-			current = Math.abs(newVal.hashCode()) % tableArray.length;
+			current = Math.abs(newVal.hashCode()) % 11;
 			
 			while (true) {
-				if (tableArray[current] == null) {
-					tableArray[current] = newVal;
-					break;
-				}
-				else {
+				if (ht.containsKey(current)) {
 					current++;
-					if (current >= tableArray.length) {
-						current = 0;
-					}
+				} else {
+					ht.put(current, newVal);
+					break;
 				}
 			}
 			
@@ -54,16 +43,15 @@ public class HashTable {
 	}
 	
 	public static void main(String[] args) {
-		HashTable newHash = new HashTable(10);
+		Setdata newHash = new Setdata();
+		Hashtable<Integer, String> ht = new Hashtable<>();
 		
 		ArrayList<String> inputList = newHash.addInput();
-		System.out.println(inputList);
+		System.out.println("\n" + inputList);
 		
-		newHash.hashFunction(inputList, newHash.tableArray);
+		newHash.hashfunction(inputList, ht);
 		for (int j = 0; j < inputList.size(); j++) {
 			System.out.println(inputList.get(j).hashCode());
 		}
 	}
-	
 }
-*/
