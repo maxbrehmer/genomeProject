@@ -6,16 +6,14 @@ public class Setdata {
 		//Constructor
 	}
 	
-	public void hashfunction(ArrayList<String> inputList, Hashtable<Integer, String> ht) {
-		int current;
+	public void hashfunction(ArrayList<String> inputList, Hashtable<String, Integer> ht) {
+		int counter = 0;
 		
 		for (int i = 0; i < inputList.size(); i++) {
 			String newVal = inputList.get(i);
-			current = newVal.hashCode();
 			
-			if (ht.containsValue(newVal) == false) {
-				ht.put(current, newVal);
-				System.out.println("Added " + newVal + " to index " + current);
+			if (ht.containsKey(newVal) == false) {
+				ht.put(newVal, ++counter);
 			}
 		}
 	}
@@ -38,11 +36,16 @@ public class Setdata {
 	
 	public static void main(String[] args) {
 		Setdata newHash = new Setdata();
-		Hashtable<Integer, String> ht = new Hashtable<>();
+		Hashtable<String, Integer> ht = new Hashtable<>();
 		
 		ArrayList<String> inputList = newHash.addInput();
 		System.out.println("\n" + inputList);
 		
 		newHash.hashfunction(inputList, ht);
+		
+		for (int i=0; i<inputList.size(); i++) {
+			int a = ht.get(inputList.get(i));
+			System.out.println("Key: " + inputList.get(i) + " -> Value: " + a);
+		}
 	}
 }
