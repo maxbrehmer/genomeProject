@@ -1,25 +1,78 @@
 import java.util.*;
 
-public class Graph {
+public class Graph<T> {
 	//GRAPH
-	//Function to add edge
-	public static void addEdge(ArrayList<ArrayList<Integer>> adj, int u, int v) {
-		
-		if (adj.get(u).contains(v) == false) {
-			adj.get(u).add(v);
-			adj.get(v).add(u);
-		}
+	
+	public Graph() {
+		//Constructor
 	}
 	
-	//Function to print the graphs edges
-	public static void printGraph(ArrayList<ArrayList<Integer>> adj) {
-		for (int i = 0; i < adj.size(); i++) {
-			System.out.println("\nAdjacency list of vertex " + i);
-			System.out.print("head");
-			for (int j = 0; j < adj.get(i).size(); j++) {
-				System.out.print(" -> " + adj.get(i).get(j));
-			}
-			System.out.println();
+	//Use hashmap to store edges in graph
+	private Map<T, List<T> > map = new HashMap<>();
+	
+	//Adds new vertex to graph
+	public void addVertex(T identifier) {
+		map.put(identifier, new LinkedList<T>());
+	}
+	
+	public void addEdge(T source, T dest) {
+		if (!map.containsKey(source)) { 
+			addVertex(source);
 		}
+		
+		if (!map.containsKey(dest)) {
+			addVertex(dest);
+		}
+		
+		if (!map.get(source).contains(dest)) {
+			map.get(source).add(dest);
+		}
+		
+		if (!map.get(dest).contains(source)) {
+			map.get(dest).add(source);
+		}
+		
+	}
+	
+	public void vertexCount() {
+		System.out.println("Number of verticies: " + map.keySet().size());
+	}
+	
+	public void edgeCount() {
+		int counter = 0;
+		int edges;
+		for (T vertex : map.keySet()) {
+			counter += map.get(vertex).size();
+		}
+		
+		//Halve or edges are counted double
+		edges = counter/2;
+		System.out.println("Number of edges: " + edges);
+	}
+	
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		
+		for (T vertex : map.keySet()) {
+			builder.append(vertex.toString() + ": [");
+			for (T edge : map.get(vertex))  {
+				builder.append(edge.toString() + " ");
+			}
+			builder.append("]\n");
+		}
+		
+		return (builder.toString());
+	}
+	
+	public static void main(String[] args) {
+		Graph<Integer> g = new Graph<Integer>();
+		
+		g.addEdge(0, 1);
+		g.addEdge(1, 2);
+		g.addEdge(2, 1);
+		
+		System.out.println("Graph:\n" + g.toString());
 	}
 }
+
+

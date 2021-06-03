@@ -43,9 +43,9 @@ public class Setdata {
 		
 		newHash.hashfunction(inputList, ht);
 		
-		for (int i=0; i<inputList.size(); i++) {
-			int a = ht.get(inputList.get(i));
-			System.out.println("Key: " + inputList.get(i) + " -> Value: " + a);
+		Set<String> keys = ht.keySet();
+		for (String key : keys) {
+			System.out.println("Key: " + key + " -> Value: " + ht.get(key) + " | hashcode: " + key.hashCode());
 		}
 	}
 }
