@@ -6,6 +6,7 @@ public class Setdata {
 		//Constructor
 	}
 	
+	//Function to put new keys to the hash table
 	public void hashfunction(ArrayList<String> inputList, Hashtable<String, Integer> ht) {
 		int counter = 0;
 		
@@ -18,6 +19,7 @@ public class Setdata {
 		}
 	}
 	
+	//Getting verticies from standard input
 	public ArrayList<String> addInput() {
 		ArrayList<String> inputList = new ArrayList<String>();
 		
@@ -26,7 +28,11 @@ public class Setdata {
 			
 			while (myScanner.hasNext()) {
 				String s = myScanner.next();
-				inputList.add(s);
+				
+				//New row (identifier) every 12 inputs
+				if ((current)%12 == 0) {
+					inputList.add(s);
+				}
 				current++;
 			}
 		}
