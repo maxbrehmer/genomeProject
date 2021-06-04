@@ -8,7 +8,7 @@ public class Main {
 		Setdata newHash = new Setdata();
 		Hashtable<String, Integer> ht = new Hashtable<>();
 		
-		ArrayList<String> inputList = newHash.addInput();
+		ArrayList<String[]> inputList = newHash.addInput();
 		
 		newHash.hashfunction(inputList, ht);
 		
