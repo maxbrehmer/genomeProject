@@ -11,10 +11,12 @@ public class Setdata {
 		int counter = 0;
 		
 		for (int i = 0; i < inputList.size(); i++) {
-			String newVal = inputList.get(i)[0];
-			
-			if (ht.containsKey(newVal) == false) {
-				ht.put(newVal, ++counter);
+			for (int j=0; j<2; j++) {
+				String newVal = inputList.get(i)[j];
+				
+				if (ht.containsKey(newVal) == false) {
+					ht.put(newVal, ++counter);
+				}
 			}
 		}
 	}
@@ -52,7 +54,7 @@ public class Setdata {
 			for (String e : row)  {
 				builder.append(e + " ");
 			}
-			builder.append("]\n");
+			builder.append("] ");
 		}
 		builder.append("]");
 		
