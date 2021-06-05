@@ -69,6 +69,14 @@ public class Graph<T> {
 		}
 	}
 	
+	public void numberOfComps() {
+		//TODO
+	}
+	
+	public void compSizeDist() {
+		//TODO
+	}
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		
