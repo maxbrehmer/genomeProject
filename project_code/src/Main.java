@@ -25,6 +25,11 @@ public class Main {
 		for (int i=1; i<=ht.size(); i++) {
 			g.addVertex(i);
 		}
+		for (int i=1; i<=ht.size(); i++) {
+			if (i-1 < inputList.size()) {
+				g.addEdge(i, ht.get(inputList.get(i-1)[1]));
+			}
+		}
 		
 		System.out.println("\nGraph:\n" + g.toString());
 	}

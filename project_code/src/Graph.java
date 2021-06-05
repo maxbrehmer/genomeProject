@@ -50,6 +50,10 @@ public class Graph<T> {
 		System.out.println("Number of edges: " + edges);
 	}
 	
+	public void nodeComponentDistribution() {
+		int[] dist = new int[map.size()];
+	}
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		
