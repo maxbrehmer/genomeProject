@@ -32,5 +32,6 @@ public class Main {
 		}
 		
 		System.out.println("\nGraph:\n" + g.toString());
+		g.nodeDegDist();
 	}
 }

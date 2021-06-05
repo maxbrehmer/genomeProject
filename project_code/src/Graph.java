@@ -50,8 +50,23 @@ public class Graph<T> {
 		System.out.println("Number of edges: " + edges);
 	}
 	
-	public void nodeComponentDistribution() {
+	public void nodeDegDist() {
 		int[] dist = new int[map.size()];
+		int maxdeg = 0;
+		for (T vertex : map.keySet()) {
+			int counter = 0;
+			for (T edge : map.get(vertex)) {
+				counter++;
+			}
+			dist[counter] += 1;
+			if (counter > maxdeg) {
+				maxdeg = counter;
+			}
+		}
+		System.out.println("\nNode degree distribution: ");
+		for (int i = 1; i<=maxdeg; i++) {
+			System.out.println(i + " : " + dist[i]);
+		}
 	}
 	
 	public String toString() {
