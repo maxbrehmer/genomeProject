@@ -20,18 +20,24 @@ public class Main {
 		/*
 		 *	GRAPH
 		 */
-		Graph<Integer> g = new Graph<Integer>();
+		Graph g = new Graph();
 		
 		for (int i=1; i<=ht.size(); i++) {
 			g.addVertex(i);
 		}
-		for (int i=1; i<=ht.size(); i++) {
-			if (i-1 < inputList.size()) {
-				g.addEdge(i, ht.get(inputList.get(i-1)[1]));
+		for (int i=0; i<ht.size(); i++) {
+			if (i < inputList.size()) {
+				g.addEdge(ht.get(inputList.get(i)[0]), ht.get(inputList.get(i)[1]));
 			}
 		}
 		
 		System.out.println("\nGraph:\n" + g.toString());
+		
+		System.out.println("\nNode degree distribution: ");
 		g.nodeDegDist();
+		
+		System.out.println("\nBFS:");
+		g.bfs(1);
+		System.out.println("");
 	}
 }

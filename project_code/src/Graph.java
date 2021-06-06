@@ -1,21 +1,23 @@
 import java.util.*;
+import java.io.*;
 
-public class Graph<T> {
+public class Graph {
 	//GRAPH
+	boolean visited;
 	
 	public Graph() {
 		//Constructor
 	}
 	
 	//Use hashmap to store edges in graph
-	private Map<T, List<T> > map = new HashMap<>();
+	private Map<Integer, List<Integer> > map = new HashMap<>();
 	
 	//Adds new vertex to graph
-	public void addVertex(T identifier) {
-		map.put(identifier, new LinkedList<T>());
+	public void addVertex(int identifier) {
+		map.put(identifier, new LinkedList<Integer>());
 	}
 	
-	public void addEdge(T source, T dest) {
+	public void addEdge(int source, int dest) {
 		if (!map.containsKey(source)) { 
 			addVertex(source);
 		}
@@ -34,28 +36,37 @@ public class Graph<T> {
 		
 	}
 	
-	public void vertexCount() {
-		System.out.println("Number of verticies: " + map.keySet().size());
+	public int vertexCount() {
+		return map.keySet().size();
 	}
 	
-	public void edgeCount() {
+	public int edgeCount() {
 		int counter = 0;
 		int edges;
-		for (T vertex : map.keySet()) {
+		for (int vertex : map.keySet()) {
 			counter += map.get(vertex).size();
 		}
 		
 		//Halve or edges are counted double
 		edges = counter/2;
-		System.out.println("Number of edges: " + edges);
+		return + edges;
+	}
+	
+	public boolean hasEdge(int source, int dest) {
+		if (map.get(source).contains(dest)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public void nodeDegDist() {
 		int[] dist = new int[map.size()];
 		int maxdeg = 0;
-		for (T vertex : map.keySet()) {
+		for (Integer vertex : map.keySet()) {
 			int counter = 0;
-			for (T edge : map.get(vertex)) {
+			for (Integer edge : map.get(vertex)) {
 				counter++;
 			}
 			dist[counter] += 1;
@@ -63,7 +74,6 @@ public class Graph<T> {
 				maxdeg = counter;
 			}
 		}
-		System.out.println("\nNode degree distribution: ");
 		for (int i = 1; i<=maxdeg; i++) {
 			System.out.println(i + " : " + dist[i]);
 		}
@@ -77,12 +87,38 @@ public class Graph<T> {
 		//TODO
 	}
 	
+	public void bfs(int root) {
+		//TODO
+		ArrayList<Boolean> visited = new ArrayList<Boolean>();
+		LinkedList<Integer> queue = new LinkedList<Integer>();
+		
+		for (int i=0; i<=map.size(); i++) {
+			visited.add(false);
+		}
+		visited.set(root, true);
+		queue.add(root);
+		
+		while (queue.size() > 0) {
+			root = queue.poll();
+			System.out.print(root + " ");
+			
+			Iterator<Integer> i = map.get(root).listIterator();
+			while (i.hasNext()) {
+				int n = i.next();
+				if (!visited.get(n)) {
+					visited.set(n, true);
+					queue.add(n);
+				}
+			}
+		}
+	}
+	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		
-		for (T vertex : map.keySet()) {
+		for (Integer vertex : map.keySet()) {
 			builder.append(vertex.toString() + ": [");
-			for (T edge : map.get(vertex))  {
+			for (Integer edge : map.get(vertex))  {
 				builder.append(edge.toString() + " ");
 			}
 			builder.append("]\n");
@@ -90,6 +126,8 @@ public class Graph<T> {
 		
 		return (builder.toString());
 	}
+	
+	public static void main(String[] args) {
+		
+	}
 }
-
-
