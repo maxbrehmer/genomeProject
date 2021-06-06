@@ -3,7 +3,8 @@ import java.io.*;
 
 public class Graph {
 	//GRAPH
-	boolean visited;
+	ArrayList<Boolean> mark = new ArrayList<Boolean>();
+	ArrayList<Integer> sizeDist = new ArrayList<Integer>();
 	
 	public Graph() {
 		//Constructor
@@ -79,24 +80,43 @@ public class Graph {
 		}
 	}
 	
-	public void numberOfComps() {
+	public int numberOfComps() {
 		//TODO
+		int counter = 0;
+		for (int i=0; i<=map.size(); i++) {
+			mark.add(false);
+		}
+		
+		for (int n : map.keySet()) {
+			if (mark.get(n).booleanValue() == false) {
+				counter++;
+				bfs(n);
+			}
+		}
+		return counter;
 	}
 	
-	public void compSizeDist() {
+	public int[] compSizeDist() {
 		//TODO
+		int[] c = new int[sizeDist.size()];
+		/*
+		for (int sizeCount : sizeDist) {
+			c[sizeCount] = sizeDist.get(sizeCount);
+		}
+		*/
+		for (int i=0; i<c.length; i++) {
+			c[i] = sizeDist.get(i);
+		}
+		
+		return c;
 	}
 	
 	public void bfs(int root) {
-		//TODO
-		ArrayList<Boolean> visited = new ArrayList<Boolean>();
 		LinkedList<Integer> queue = new LinkedList<Integer>();
 		
-		for (int i=0; i<=map.size(); i++) {
-			visited.add(false);
-		}
-		visited.set(root, true);
+		mark.set(root, true);
 		queue.add(root);
+		int sizeCounter = 1;
 		
 		while (queue.size() > 0) {
 			root = queue.poll();
@@ -105,11 +125,21 @@ public class Graph {
 			Iterator<Integer> i = map.get(root).listIterator();
 			while (i.hasNext()) {
 				int n = i.next();
-				if (!visited.get(n)) {
-					visited.set(n, true);
+				if (!mark.get(n)) {
+					mark.set(n, true);
 					queue.add(n);
+					sizeCounter++;
 				}
 			}
+		}
+		
+		if (sizeCounter >= sizeDist.size()) {
+			for (int i=sizeDist.size(); i<=sizeCounter; i++) {
+				sizeDist.add(0);
+			}
+			sizeDist.set(sizeCounter, 1);
+		} else {
+			sizeDist.set(sizeCounter, sizeDist.get(sizeCounter)+1);
 		}
 	}
 	

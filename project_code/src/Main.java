@@ -37,7 +37,14 @@ public class Main {
 		g.nodeDegDist();
 		
 		System.out.println("\nBFS:");
-		g.bfs(1);
-		System.out.println("");
+		int noc = g.numberOfComps();
+		System.out.println("\nNumber of components: " + noc);
+		
+		int[] csd = g.compSizeDist();
+		System.out.print("\n<");
+		for (int i=0; i<csd.length; i++) {
+			System.out.print(csd[i] + " ");
+		}
+		System.out.print(">\n");
 	}
 }
