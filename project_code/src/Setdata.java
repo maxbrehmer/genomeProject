@@ -21,7 +21,7 @@ public class Setdata {
 		}
 	}
 	
-	//Getting verticies from standard input
+	//Getting vertices from standard input
 	public ArrayList<String[]> addInput() {
 		ArrayList<String[]> inputList = new ArrayList<String[]>();
 		
@@ -46,6 +46,8 @@ public class Setdata {
 	}
 	
 	public String toString(ArrayList<String[]> inputList) {
+		//Representing input list as a string
+		
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append("[");
@@ -59,20 +61,5 @@ public class Setdata {
 		builder.append("]");
 		
 		return (builder.toString());
-	}
-	
-	public static void main(String[] args) {
-		Setdata newHash = new Setdata();
-		Hashtable<String, Integer> ht = new Hashtable<>();
-		
-		ArrayList<String[]> inputList = newHash.addInput();
-		System.out.println("\n" + newHash.toString(inputList));
-		
-		newHash.hashfunction(inputList, ht);
-		
-		Set<String> keys = ht.keySet();
-		for (String key : keys) {
-			System.out.println("Key: " + key + " -> Value: " + ht.get(key) + " | hashcode: " + key.hashCode());
-		}
 	}
 }

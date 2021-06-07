@@ -1,27 +1,32 @@
 import java.util.*;
-import java.io.*;
 
 public class Graph {
 	//GRAPH
 	ArrayList<Boolean> mark = new ArrayList<Boolean>();
 	ArrayList<Integer> sizeDist = new ArrayList<Integer>();
 	ArrayList<Boolean> isAlive = new ArrayList<Boolean>();
+	int maxdeg;
 	
 	public Graph() {
 		//Constructor
 		isAlive.add(false);	//isAlive element 0
+		
+		maxdeg = 0;
 	}
 	
-	//Use hashmap to store edges in graph
+	//Initialize hash map to store edges in graph
 	private Map<Integer, List<Integer> > map = new HashMap<>();
 	
-	//Adds new vertex to graph
 	public void addVertex(int identifier) {
+		//Adds new vertex to graph
+		
 		map.put(identifier, new LinkedList<Integer>());
 		isAlive.add(true); 
 	}
 	
 	public void addEdge(int source, int dest) {
+		//Adding destination element as edge to source element and vice versa 
+		
 		if (!map.containsKey(source)) { 
 			addVertex(source);
 		}
@@ -40,44 +45,27 @@ public class Graph {
 		
 	}
 	
-	public void delVertex(int identifier) {
-		for (int edge=0; edge < map.get(identifier).size(); edge++) {
-			System.out.println("yeeting edge " + identifier + " -> " + map.get(identifier).get(edge));
-			//map.get(identifier).remove(edge);
-			int temp = map.get(identifier).get(edge);
-			//delEdge(identifier, edge);
-			//delEdge(temp, identifier);
-		}
-	}
-	
-	public void delEdge(int source, int dest) {
-		map.get(source).remove(dest);
-		/*
-		if (map.get(dest) != null) {
-			if (map.get(dest).contains(source)) {
-				System.out.println("Ayooo");
-			}
-		}
-		*/
-	}
-	
 	public int vertexCount() {
+		//Returns the amount of vertices in the graph
+		
 		return map.keySet().size();
 	}
 	
 	public int edgeCount() {
+		//Returns the amount of edges in the graph
+		
 		int counter = 0;
-		int edges;
 		for (int vertex : map.keySet()) {
 			counter += map.get(vertex).size();
 		}
 		
-		//Halve or edges are counted double
-		edges = counter/2;
-		return + edges;
+		int edges = counter/2;
+		return edges;
 	}
 	
 	public boolean hasEdge(int source, int dest) {
+		//Does this edge exist? (true/false)
+		
 		if (map.get(source).contains(dest)) {
 			return true;
 		}
@@ -86,9 +74,10 @@ public class Graph {
 		}
 	}
 	
-	public void nodeDegDist() {
+	public int[] nodeDegDist() {
+		//Array representing amount of vertices containing x number of edges
+		
 		int[] dist = new int[map.size()];
-		int maxdeg = 0;
 		for (Integer vertex : map.keySet()) {
 			int counter = 0;
 			for (Integer edge : map.get(vertex)) {
@@ -99,13 +88,12 @@ public class Graph {
 				maxdeg = counter;
 			}
 		}
-		for (int i = 1; i<=maxdeg; i++) {
-			System.out.println(i + " : " + dist[i]);
-		}
+		return dist;
 	}
 	
 	public int numberOfComps() {
-		//TODO
+		//Counts amount of times we enter a new component
+		
 		int counter = 0;
 		for (int i=0; i<=map.size(); i++) {
 			mark.add(false);
@@ -123,13 +111,9 @@ public class Graph {
 	}
 	
 	public int[] compSizeDist() {
-		//TODO
+		//Array representing amount of components containing x number of vertices
+		
 		int[] c = new int[sizeDist.size()];
-		/*
-		for (int sizeCount : sizeDist) {
-			c[sizeCount] = sizeDist.get(sizeCount);
-		}
-		*/
 		for (int i=0; i<c.length; i++) {
 			c[i] = sizeDist.get(i);
 		}
@@ -138,6 +122,8 @@ public class Graph {
 	}
 	
 	public void bfs(int root) {
+		//Breadth first search algorithm
+		
 		LinkedList<Integer> queue = new LinkedList<Integer>();
 		
 		mark.set(root, true);
@@ -169,6 +155,8 @@ public class Graph {
 	}
 	
 	public String toString() {
+		//Representing the whole graph as a string
+		
 		StringBuilder builder = new StringBuilder();
 		
 		for (Integer vertex : map.keySet()) {
