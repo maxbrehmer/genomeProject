@@ -25,7 +25,7 @@ public class Graph {
 	}
 	
 	public void addEdge(int source, int dest) {
-		//Adding destination element as edge to source element and vice versa 
+		//Adding destination element as edge to source element and vice versa
 		
 		if (!map.containsKey(source)) { 
 			addVertex(source);
@@ -59,7 +59,7 @@ public class Graph {
 			counter += map.get(vertex).size();
 		}
 		
-		int edges = counter/2;
+		int edges = counter/2;	//Edges are counted double since they go both ways
 		return edges;
 	}
 	
@@ -160,11 +160,13 @@ public class Graph {
 		StringBuilder builder = new StringBuilder();
 		
 		for (Integer vertex : map.keySet()) {
-			builder.append(vertex.toString() + ": [");
-			for (Integer edge : map.get(vertex))  {
-				builder.append(edge.toString() + " ");
+			if (!map.get(vertex).isEmpty()) {
+				builder.append(vertex.toString() + ": [");
+				for (Integer edge : map.get(vertex))  {
+					builder.append(edge.toString() + " ");
+				}
+				builder.append("]\n");
 			}
-			builder.append("]\n");
 		}
 		
 		return (builder.toString());

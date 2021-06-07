@@ -11,11 +11,13 @@ public class Main {
 		ArrayList<String[]> inputList = newHash.addInput();
 		
 		newHash.hashfunction(inputList, ht);
-		
+		/*
 		Set<String> keys = ht.keySet();
 		for (String key : keys) {
 			System.out.println("Key: " + key + " -> Value: " + ht.get(key) + " | hashcode: " + key.hashCode());
-		}
+		}*/
+		
+		System.out.println("Hash table size: " + ht.size());
 		
 		/*
 		 *	GRAPH
@@ -40,7 +42,7 @@ public class Main {
 			}
 		}
 		
-		System.out.println("\nGraph:\n" + g.toString());
+		//System.out.println("\nGraph:\n" + g.toString());
 		
 		System.out.println("\nNode degree distribution:");
 		int[] ndd = g.nodeDegDist();
@@ -57,5 +59,6 @@ public class Main {
 			System.out.println(i + " : " + csd[i]);
 		}
 		System.out.print("\n");
+		
 	}
 }
