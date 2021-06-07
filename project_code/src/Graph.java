@@ -5,9 +5,11 @@ public class Graph {
 	//GRAPH
 	ArrayList<Boolean> mark = new ArrayList<Boolean>();
 	ArrayList<Integer> sizeDist = new ArrayList<Integer>();
+	ArrayList<Boolean> isAlive = new ArrayList<Boolean>();
 	
 	public Graph() {
 		//Constructor
+		isAlive.add(false);	//isAlive element 0
 	}
 	
 	//Use hashmap to store edges in graph
@@ -16,6 +18,7 @@ public class Graph {
 	//Adds new vertex to graph
 	public void addVertex(int identifier) {
 		map.put(identifier, new LinkedList<Integer>());
+		isAlive.add(true); 
 	}
 	
 	public void addEdge(int source, int dest) {
@@ -35,6 +38,27 @@ public class Graph {
 			map.get(dest).add(source);
 		}
 		
+	}
+	
+	public void delVertex(int identifier) {
+		for (int edge=0; edge < map.get(identifier).size(); edge++) {
+			System.out.println("yeeting edge " + identifier + " -> " + map.get(identifier).get(edge));
+			//map.get(identifier).remove(edge);
+			int temp = map.get(identifier).get(edge);
+			//delEdge(identifier, edge);
+			//delEdge(temp, identifier);
+		}
+	}
+	
+	public void delEdge(int source, int dest) {
+		map.get(source).remove(dest);
+		/*
+		if (map.get(dest) != null) {
+			if (map.get(dest).contains(source)) {
+				System.out.println("Ayooo");
+			}
+		}
+		*/
 	}
 	
 	public int vertexCount() {
@@ -89,8 +113,10 @@ public class Graph {
 		
 		for (int n : map.keySet()) {
 			if (mark.get(n).booleanValue() == false) {
-				counter++;
-				bfs(n);
+				if (!map.get(n).isEmpty()) {
+					counter++;
+					bfs(n);
+				}
 			}
 		}
 		return counter;
@@ -120,7 +146,6 @@ public class Graph {
 		
 		while (queue.size() > 0) {
 			root = queue.poll();
-			System.out.print(root + " ");
 			
 			Iterator<Integer> i = map.get(root).listIterator();
 			while (i.hasNext()) {
@@ -155,9 +180,5 @@ public class Graph {
 		}
 		
 		return (builder.toString());
-	}
-	
-	public static void main(String[] args) {
-		
 	}
 }

@@ -27,7 +27,16 @@ public class Main {
 		}
 		for (int i=0; i<ht.size(); i++) {
 			if (i < inputList.size()) {
-				g.addEdge(ht.get(inputList.get(i)[0]), ht.get(inputList.get(i)[1]));
+				if (Integer.parseInt(inputList.get(i)[10]) - Integer.parseInt(inputList.get(i)[9]) == Integer.parseInt(inputList.get(i)[11])) {
+					//g.delVertex(ht.get(inputList.get(i)[1]));
+					g.isAlive.set(ht.get(inputList.get(i)[1]), false);
+				} else if (Integer.parseInt(inputList.get(i)[6]) - Integer.parseInt(inputList.get(i)[5]) == Integer.parseInt(inputList.get(i)[7])) {
+					//g.delVertex(ht.get(inputList.get(i)[0]));
+					g.isAlive.set(ht.get(inputList.get(i)[0]), false);
+				}
+				if ((g.isAlive.get(ht.get(inputList.get(i)[0])) == true) && (g.isAlive.get(ht.get(inputList.get(i)[1])) == true)) {
+					g.addEdge(ht.get(inputList.get(i)[0]), ht.get(inputList.get(i)[1]));
+				}
 			}
 		}
 		
@@ -36,15 +45,14 @@ public class Main {
 		System.out.println("\nNode degree distribution: ");
 		g.nodeDegDist();
 		
-		System.out.println("\nBFS:");
 		int noc = g.numberOfComps();
 		System.out.println("\nNumber of components: " + noc);
 		
+		System.out.println("\nComponent size distribution:");
 		int[] csd = g.compSizeDist();
-		System.out.print("\n<");
 		for (int i=0; i<csd.length; i++) {
-			System.out.print(csd[i] + " ");
+			System.out.println(i + " : " + csd[i]);
 		}
-		System.out.print(">\n");
+		System.out.print("\n");
 	}
 }
