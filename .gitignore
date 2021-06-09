@@ -1,4 +1,4 @@
 /data_folder
 
 /.metadata/
-.class
+*.class
