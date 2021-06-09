@@ -4,20 +4,22 @@ import java.io.*;
 public class Main {
 	public static void main(String[] args) {
 		
-		
-		//if (args.length > 0) {
-			//System.out.println(Arrays.toString(args));
-			//return;
-		//}
 		/*
 		 *	HASH TABLE
 		 */
 		Setdata newHash = new Setdata();
 		Hashtable<String, Integer> ht = new Hashtable<>();
 		
-		//Replace with desired input file
+		//Instructions
+		if (args.length != 1) {
+			System.out.println("Usage: java Main <overlap-filename>");
+			return;
+		}
+		
+		//Get filename from input
 		String filename = args[0];
 		
+		//First iteration of input file
 		try {
 			//Progress counter
 			int linecount = 0;
@@ -25,6 +27,7 @@ public class Main {
 			FileInputStream fis = new FileInputStream(filename);
 			Scanner dataScanner = new Scanner(fis);
 			
+			//Reading next line from file
 			while (dataScanner.hasNextLine()) {
 				String[] line = new String[12];
 				
@@ -34,40 +37,45 @@ public class Main {
 						line[i] = elem;
 					}
 				}
+				
+				//Adding elements to hash table
 				if (line[0] != null && line[1] != null) {
 					newHash.hashfunction(line, ht);
 				}
 				
 				dataScanner.nextLine();
+				
+				//Counting lines in stderr
 				linecount++;
 				if (linecount%1000 == 0) {
-					System.err.print("LINES SCANNED: " + linecount + "\r");
+					System.err.print("LINES SCANNED FOR HASH TABLE: " + linecount + "\r");
 				}
 			}
-			System.err.println("\n");
+			System.err.println();
 			
 			dataScanner.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		
-		
 		/*
 		 *	GRAPH
 		 */
 		Graph g = new Graph();
 		
+		//Adding all vertices to graph
 		for (String key : ht.keySet()) {
 			g.addVertex(ht.get(key));
 		}
 		
+		//Second iteration of input file
 		try {
 			int linecount = 0;
 			
 			FileInputStream fis = new FileInputStream(filename);
 			Scanner graphScanner = new Scanner(fis);
 			
+			//Reading next line from file
 			while (graphScanner.hasNextLine()) {
 				String[] line = new String[12];
 				
@@ -78,6 +86,7 @@ public class Main {
 					}
 				}
 				
+				//Adding edges and removing overlapped contigs
 				if (line[0] != null && line[1] != null && line[5] != null && line[6] != null && line[7] != null && line[9] != null && line[10] != null && line[11] != null) {
 					if (Integer.parseInt(line[10]) - Integer.parseInt(line[9]) == Integer.parseInt(line[11])) {
 						g.isAlive.set(ht.get(line[1]), false);
@@ -91,9 +100,10 @@ public class Main {
 				}
 				graphScanner.nextLine();
 				
+				//Counting lines in stderr
 				linecount++;
 				if (linecount%1000 == 0) {
-					System.err.print("LINES SCD: " + linecount + "\r");
+					System.err.print("LINES SCANNED FOR GRAPH: " + linecount + "\r");
 				}
 			}
 			graphScanner.close();
@@ -101,6 +111,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+		//STDOUT
 		System.out.println("\nNumber of vertices: " + g.vertexCount());
 		System.out.println("\nNumber of edges: " + g.edgeCount());
 		
@@ -122,7 +133,7 @@ public class Main {
 				System.out.println(i + " : " + csd[i]);
 			}
 		}
-		System.out.print("\n");
+		System.out.println();
 		
 	}
 }

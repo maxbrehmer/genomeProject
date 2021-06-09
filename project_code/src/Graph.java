@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Graph {
-	//GRAPH
+	//public class members
 	public ArrayList<Boolean> mark = new ArrayList<Boolean>();
 	public ArrayList<Integer> sizeDist = new ArrayList<Integer>();
 	public ArrayList<Boolean> isAlive = new ArrayList<Boolean>();
