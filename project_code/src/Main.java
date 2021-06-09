@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -8,14 +9,33 @@ public class Main {
 		Setdata newHash = new Setdata();
 		Hashtable<String, Integer> ht = new Hashtable<>();
 		
-		ArrayList<String[]> inputList = newHash.addInput();
+		//Replace with desired input file
+		String filename = "../../data_folder/lines_100k.txt";
 		
-		newHash.hashfunction(inputList, ht);
-		/*
-		Set<String> keys = ht.keySet();
-		for (String key : keys) {
-			System.out.println("Key: " + key + " -> Value: " + ht.get(key) + " | hashcode: " + key.hashCode());
-		}*/
+		try {
+			FileInputStream fis = new FileInputStream(filename);
+			Scanner dataScanner = new Scanner(fis);
+			
+			while (dataScanner.hasNextLine()) {
+				String[] line = new String[12];
+				
+				for (int i=0; i<12; i++) {
+					if (dataScanner.hasNext()) {
+						String elem = dataScanner.next();
+						line[i] = elem;
+					}
+				}
+				if (line[0] != null && line[1] != null) {
+					newHash.hashfunction(line, ht);
+				}
+				
+				dataScanner.nextLine();
+			}
+			
+			dataScanner.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		System.out.println("Hash table size: " + ht.size());
 		
@@ -24,22 +44,40 @@ public class Main {
 		 */
 		Graph g = new Graph();
 		
-		for (int i=1; i<=ht.size(); i++) {
-			g.addVertex(i);
+		for (String key : ht.keySet()) {
+			g.addVertex(ht.get(key));
 		}
-		for (int i=0; i<ht.size(); i++) {
-			if (i < inputList.size()) {
+		
+		try {
+			FileInputStream fis = new FileInputStream(filename);
+			Scanner graphScanner = new Scanner(fis);
+			
+			while (graphScanner.hasNextLine()) {
+				String[] line = new String[12];
 				
-				if (Integer.parseInt(inputList.get(i)[10]) - Integer.parseInt(inputList.get(i)[9]) == Integer.parseInt(inputList.get(i)[11])) {
-					g.isAlive.set(ht.get(inputList.get(i)[1]), false);
-				} else if (Integer.parseInt(inputList.get(i)[6]) - Integer.parseInt(inputList.get(i)[5]) == Integer.parseInt(inputList.get(i)[7])) {
-					g.isAlive.set(ht.get(inputList.get(i)[0]), false);
+				for (int i=0; i<12; i++) {
+					if (graphScanner.hasNext()) {
+						String elem = graphScanner.next();
+						line[i] = elem;
+					}
 				}
 				
-				if ((g.isAlive.get(ht.get(inputList.get(i)[0])) == true) && (g.isAlive.get(ht.get(inputList.get(i)[1])) == true)) {
-					g.addEdge(ht.get(inputList.get(i)[0]), ht.get(inputList.get(i)[1]));
+				if (line[0] != null && line[1] != null && line[5] != null && line[6] != null && line[7] != null && line[9] != null && line[10] != null && line[11] != null) {
+					if (Integer.parseInt(line[10]) - Integer.parseInt(line[9]) == Integer.parseInt(line[11])) {
+						g.isAlive.set(ht.get(line[1]), false);
+					} else if (Integer.parseInt(line[6]) - Integer.parseInt(line[5]) == Integer.parseInt(line[7])) {
+						g.isAlive.set(ht.get(line[0]), false);
+					}
+					
+					if (g.isAlive.get(ht.get(line[0])) == true && g.isAlive.get(ht.get(line[1])) == true) {
+						g.addEdge(ht.get(line[0]), ht.get(line[1]));
+					}
 				}
+				graphScanner.nextLine();
 			}
+			graphScanner.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		//System.out.println("\nGraph:\n" + g.toString());
