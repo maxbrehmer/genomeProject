@@ -37,8 +37,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Hash table size: " + ht.size());
-		
 		/*
 		 *	GRAPH
 		 */
@@ -80,12 +78,15 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		//System.out.println("\nGraph:\n" + g.toString());
+		System.out.println("\nNumber of vertices: " + g.vertexCount());
+		System.out.println("\nNumber of edges: " + g.edgeCount());
 		
 		System.out.println("\nNode degree distribution:");
 		int[] ndd = g.nodeDegDist();
 		for (int i = 1; i<=g.maxdeg; i++) {
-			System.out.println(i + " : " + ndd[i]);
+			if (ndd[i] > 0) {
+				System.out.println(i + " : " + ndd[i]);
+			}
 		}
 		
 		int noc = g.numberOfComps();
@@ -94,7 +95,9 @@ public class Main {
 		System.out.println("\nComponent size distribution:");
 		int[] csd = g.compSizeDist();
 		for (int i=0; i<csd.length; i++) {
-			System.out.println(i + " : " + csd[i]);
+			if (csd[i] > 0) {
+				System.out.println(i + " : " + csd[i]);
+			}
 		}
 		System.out.print("\n");
 		

@@ -153,22 +153,4 @@ public class Graph {
 			sizeDist.set(sizeCounter, sizeDist.get(sizeCounter)+1);
 		}
 	}
-	
-	public String toString() {
-		//Representing the whole graph as a string
-		
-		StringBuilder builder = new StringBuilder();
-		
-		for (Integer vertex : map.keySet()) {
-			if (!map.get(vertex).isEmpty()) {
-				builder.append(vertex.toString() + ": [");
-				for (Integer edge : map.get(vertex))  {
-					builder.append(edge.toString() + " ");
-				}
-				builder.append("]\n");
-			}
-		}
-		
-		return (builder.toString());
-	}
 }
