@@ -3,6 +3,12 @@ import java.io.*;
 
 public class Main {
 	public static void main(String[] args) {
+		
+		
+		//if (args.length > 0) {
+			//System.out.println(Arrays.toString(args));
+			//return;
+		//}
 		/*
 		 *	HASH TABLE
 		 */
@@ -10,9 +16,12 @@ public class Main {
 		Hashtable<String, Integer> ht = new Hashtable<>();
 		
 		//Replace with desired input file
-		String filename = "../../data_folder/lines_100k.txt";
+		String filename = args[0];
 		
 		try {
+			//Progress counter
+			int linecount = 0;
+			
 			FileInputStream fis = new FileInputStream(filename);
 			Scanner dataScanner = new Scanner(fis);
 			
@@ -30,12 +39,19 @@ public class Main {
 				}
 				
 				dataScanner.nextLine();
+				linecount++;
+				if (linecount%1000 == 0) {
+					System.err.print("LINES SCANNED: " + linecount + "\r");
+				}
 			}
+			System.err.println("\n");
 			
 			dataScanner.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 		
 		/*
 		 *	GRAPH
@@ -47,6 +63,8 @@ public class Main {
 		}
 		
 		try {
+			int linecount = 0;
+			
 			FileInputStream fis = new FileInputStream(filename);
 			Scanner graphScanner = new Scanner(fis);
 			
@@ -72,6 +90,11 @@ public class Main {
 					}
 				}
 				graphScanner.nextLine();
+				
+				linecount++;
+				if (linecount%1000 == 0) {
+					System.err.print("LINES SCD: " + linecount + "\r");
+				}
 			}
 			graphScanner.close();
 		} catch (IOException e) {

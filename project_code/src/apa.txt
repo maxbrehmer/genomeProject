@@ -1,0 +1,27 @@
+
+Number of vertices: 1043
+
+Number of edges: 117
+
+Node degree distribution:
+1 : 126
+2 : 14
+3 : 7
+4 : 4
+5 : 3
+6 : 2
+7 : 1
+9 : 1
+
+Number of components: 41
+
+Component size distribution:
+2 : 11
+3 : 12
+4 : 7
+5 : 4
+6 : 2
+7 : 2
+8 : 2
+10 : 1
+

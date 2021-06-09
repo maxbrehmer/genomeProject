@@ -2,10 +2,10 @@ import java.util.*;
 
 public class Graph {
 	//GRAPH
-	ArrayList<Boolean> mark = new ArrayList<Boolean>();
-	ArrayList<Integer> sizeDist = new ArrayList<Integer>();
-	ArrayList<Boolean> isAlive = new ArrayList<Boolean>();
-	int maxdeg;
+	public ArrayList<Boolean> mark = new ArrayList<Boolean>();
+	public ArrayList<Integer> sizeDist = new ArrayList<Integer>();
+	public ArrayList<Boolean> isAlive = new ArrayList<Boolean>();
+	public int maxdeg;
 	
 	public Graph() {
 		//Constructor
